@@ -131,6 +131,14 @@ class ArrayObjectTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function implodeTest()
+    {
+        $this->assertSame('abc', $this->fixture->implode());
+        $this->assertSame('a,b,c', $this->fixture->implode(','));
+}
+    /**
+     * @test
+     */
     public function createFromStringTest()
     {
         $result = ArrayObject::createFromString(',', 'a,b,c');

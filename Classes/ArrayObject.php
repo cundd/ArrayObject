@@ -100,6 +100,17 @@ class ArrayObject extends \ArrayObject
     }
 
     /**
+     * Join array elements with a string
+     *
+     * @param string $glue
+     * @return string
+     */
+    public function implode($glue = '')
+    {
+        return implode($glue, $this->getArrayCopy());
+    }
+
+    /**
      * Split a string by string
      *
      * @param string $delimiter
