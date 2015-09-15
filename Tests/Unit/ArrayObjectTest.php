@@ -141,6 +141,28 @@ class ArrayObjectTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     */
+    public function createFromStringSingleElementTest()
+    {
+        $result = ArrayObject::createFromString(',', 'a');
+        $this->assertInstanceOf(ArrayObject::class, $result);
+        $this->assertSame(1, $result->count());
+        $this->assertSame(['a'], $result->getArrayCopy());
+    }
+
+    /**
+     * @test
+     */
+    public function createFromStringWithEmptyStringTest()
+    {
+        $result = ArrayObject::createFromString(',', '');
+        $this->assertInstanceOf(ArrayObject::class, $result);
+        $this->assertSame(0, $result->count());
+        $this->assertSame([], $result->getArrayCopy());
+    }
+
+    /**
+     * @test
      * @expectedException \InvalidArgumentException
      * @expectedExceptionCode 1442318390
      */

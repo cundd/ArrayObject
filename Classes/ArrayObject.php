@@ -120,6 +120,9 @@ class ArrayObject extends \ArrayObject
                 1442318391
             );
         }
+        if ($input === '') {
+            return new static();
+        }
 
         return new static(explode($delimiter, $input));
     }
