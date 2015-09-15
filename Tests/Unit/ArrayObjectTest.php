@@ -66,15 +66,17 @@ class ArrayObjectTest extends \PHPUnit_Framework_TestCase
 
     }
 
-
     /**
      * @test
      */
     public function filterTest()
     {
-        $result = $this->fixture->filter(function($item) {
-            return $item === 'a';
-        }, $flag = 0);
+        $result = $this->fixture->filter(
+            function ($item) {
+                return $item === 'a';
+            },
+            $flag = 0
+        );
         $this->assertInstanceOf(ArrayObject::class, $result);
         $this->assertSame(1, $result->count());
         $this->assertSame(['a'], $result->getArrayCopy());
@@ -89,6 +91,17 @@ class ArrayObjectTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(ArrayObject::class, $result);
         $this->assertSame(6, $result->count());
         $this->assertSame(['a', 'b', 'c', 1, 2, 3], $result->getArrayCopy());
+    }
+
+    /**
+     * @test
+     */
+    public function multiMergeTest()
+    {
+        $result = $this->fixture->merge([1, 2, 3], [4, 5, 6]);
+        $this->assertInstanceOf(ArrayObject::class, $result);
+        $this->assertSame(9, $result->count());
+        $this->assertSame(['a', 'b', 'c', 1, 2, 3, 4, 5, 6], $result->getArrayCopy());
     }
 
     /**
