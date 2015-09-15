@@ -64,6 +64,20 @@ class ArrayObjectTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(3, $result->count());
         $this->assertSame(['A', 'B', 'C'], $result->getArrayCopy());
 
+        $result = $this->fixture->map('strtoupper');
+        $this->assertInstanceOf(ArrayObject::class, $result);
+        $this->assertSame(3, $result->count());
+        $this->assertSame(['A', 'B', 'C'], $result->getArrayCopy());
+    }
+
+    /**
+     * @test
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionCode 1442311974
+     */
+    public function mapWithoutCallableTest()
+    {
+        $this->fixture->map(null);
     }
 
     /**
@@ -80,6 +94,16 @@ class ArrayObjectTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(ArrayObject::class, $result);
         $this->assertSame(1, $result->count());
         $this->assertSame(['a'], $result->getArrayCopy());
+    }
+
+    /**
+     * @test
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionCode 1442311975
+     */
+    public function filterWithoutCallableTest()
+    {
+        $this->fixture->filter(null);
     }
 
     /**
@@ -113,5 +137,105 @@ class ArrayObjectTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(ArrayObject::class, $result);
         $this->assertSame(3, $result->count());
         $this->assertSame(['a', 'b', 'c'], $result->getArrayCopy());
+    }
+
+    /**
+     * @test
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionCode 1442318390
+     */
+    public function createFromStringWithInvalidDelimiterTest()
+    {
+        ArrayObject::createFromString(null, 'a,b,c');
+    }
+
+    /**
+     * @test
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionCode 1442318390
+     */
+    public function createFromStringWithInvalidDelimiterIntTest()
+    {
+        ArrayObject::createFromString(1, 'a,b,c');
+    }
+
+    /**
+     * @test
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionCode 1442318390
+     */
+    public function createFromStringWithInvalidDelimiterDoubleTest()
+    {
+        ArrayObject::createFromString(1.0, 'a,b,c');
+    }
+
+    /**
+     * @test
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionCode 1442318390
+     */
+    public function createFromStringWithInvalidDelimiterArrayTest()
+    {
+        ArrayObject::createFromString([], 'a,b,c');
+    }
+
+    /**
+     * @test
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionCode 1442318390
+     */
+    public function createFromStringWithInvalidDelimiterObjectTest()
+    {
+        ArrayObject::createFromString(new \stdClass(), 'a,b,c');
+    }
+
+    /**
+     * @test
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionCode 1442318391
+     */
+    public function createFromStringWithInvalidInputTest()
+    {
+        ArrayObject::createFromString(',', null);
+    }
+
+    /**
+     * @test
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionCode 1442318391
+     */
+    public function createFromStringWithInvalidInputIntTest()
+    {
+        ArrayObject::createFromString(',', 1);
+    }
+
+    /**
+     * @test
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionCode 1442318391
+     */
+    public function createFromStringWithInvalidInputDoubleTest()
+    {
+        ArrayObject::createFromString(',', 1.0);
+    }
+
+    /**
+     * @test
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionCode 1442318391
+     */
+    public function createFromStringWithInvalidInputArrayTest()
+    {
+        ArrayObject::createFromString(',', []);
+    }
+
+    /**
+     * @test
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionCode 1442318391
+     */
+    public function createFromStringWithInvalidInputObjectTest()
+    {
+        ArrayObject::createFromString(',', new \stdClass());
     }
 }

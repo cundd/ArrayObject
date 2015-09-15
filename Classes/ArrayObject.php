@@ -32,7 +32,11 @@
 
 namespace Cundd;
 
-
+/**
+ * Array extension to support array functions
+ *
+ * @package Cundd
+ */
 class ArrayObject extends \ArrayObject
 {
     /**
@@ -68,7 +72,7 @@ class ArrayObject extends \ArrayObject
     public function filter($callback, $flag = 0)
     {
         if (!is_callable($callback)) {
-            throw new \InvalidArgumentException('Argument "callback" is not callable', 1442311974);
+            throw new \InvalidArgumentException('Argument "callback" is not callable', 1442311975);
         }
 
         return new static(array_filter($this->getArrayCopy(), $callback, $flag));
@@ -104,6 +108,19 @@ class ArrayObject extends \ArrayObject
      */
     public static function createFromString($delimiter, $input)
     {
+        if (!is_string($delimiter)) {
+            throw new \InvalidArgumentException(
+                sprintf('Argument "delimiter" must be of type string "%s" given', gettype($delimiter)),
+                1442318390
+            );
+        }
+        if (!is_string($input)) {
+            throw new \InvalidArgumentException(
+                sprintf('Argument "input" must be of type string "%s" given', gettype($delimiter)),
+                1442318391
+            );
+        }
+
         return new static(explode($delimiter, $input));
     }
 }
