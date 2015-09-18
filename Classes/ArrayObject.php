@@ -127,7 +127,7 @@ class ArrayObject extends \ArrayObject
         }
         if (!is_string($input)) {
             throw new \InvalidArgumentException(
-                sprintf('Argument "input" must be of type string "%s" given', gettype($delimiter)),
+                sprintf('Argument "input" must be of type string "%s" given', gettype($input)),
                 1442318391
             );
         }
