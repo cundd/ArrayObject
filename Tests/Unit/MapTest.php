@@ -160,16 +160,20 @@ class MapTest extends \PHPUnit_Framework_TestCase
 
 
         $this->assertTrue($this->fixture->offsetExists($object));
+        $this->assertTrue($this->fixture->exists($object));
         $this->assertTrue(isset($this->fixture[$object]));
 
         $this->assertTrue($this->fixture->offsetExists(spl_object_hash($object)));
+        $this->assertTrue($this->fixture->exists(spl_object_hash($object)));
         $this->assertTrue(isset($this->fixture[spl_object_hash($object)]));
 
         $object2 = new stdClass();
         $this->assertFalse($this->fixture->offsetExists($object2));
+        $this->assertFalse($this->fixture->exists($object2));
         $this->assertFalse(isset($this->fixture[$object2]));
 
         $this->assertFalse($this->fixture->offsetExists(spl_object_hash($object2)));
+        $this->assertFalse($this->fixture->exists(spl_object_hash($object2)));
         $this->assertFalse(isset($this->fixture[spl_object_hash($object2)]));
     }
 
@@ -187,16 +191,20 @@ class MapTest extends \PHPUnit_Framework_TestCase
 
 
         $this->assertEquals('a', $this->fixture->offsetGet($object));
-        //$this->assertEquals('a', $this->fixture[$object]);
+        $this->assertEquals('a', $this->fixture->get($object));
+        $this->assertEquals('a', $this->fixture[$object]);
 
         $this->assertEquals('a', $this->fixture->offsetGet(spl_object_hash($object)));
+        $this->assertEquals('a', $this->fixture->get(spl_object_hash($object)));
         $this->assertEquals('a', $this->fixture[spl_object_hash($object)]);
 
         $object2 = new stdClass();
         $this->assertNull($this->fixture->offsetGet($object2));
+        $this->assertNull($this->fixture->get($object2));
         $this->assertNull($this->fixture[$object2]);
 
         $this->assertNull($this->fixture->offsetGet(spl_object_hash($object2)));
+        $this->assertNull($this->fixture->get(spl_object_hash($object2)));
         $this->assertNull($this->fixture[spl_object_hash($object2)]);
     }
 
@@ -210,19 +218,15 @@ class MapTest extends \PHPUnit_Framework_TestCase
 
         $this->fixture->offsetSet($object, 'a');
         $this->assertEquals('a', $this->fixture->offsetGet($object));
-        $this->assertEquals('a', $this->fixture[$object]);
-
         $this->assertEquals('a', $this->fixture->offsetGet(spl_object_hash($object)));
-        $this->assertEquals('a', $this->fixture[spl_object_hash($object)]);
 
+        $this->fixture->set($object, 'm');
+        $this->assertEquals('m', $this->fixture->offsetGet($object));
+        $this->assertEquals('m', $this->fixture->offsetGet(spl_object_hash($object)));
 
-        $this->fixture[$object] =  'v';
+        $this->fixture[$object] = 'v';
         $this->assertEquals('v', $this->fixture->offsetGet($object));
-        $this->assertEquals('v', $this->fixture[$object]);
-
         $this->assertEquals('v', $this->fixture->offsetGet(spl_object_hash($object)));
-        $this->assertEquals('v', $this->fixture[spl_object_hash($object)]);
-
     }
 
     /**
@@ -302,6 +306,7 @@ class MapTest extends \PHPUnit_Framework_TestCase
             function ($keyObject, $value) {
                 /** @var object $keyObject */
                 assert($value === $keyObject->character);
+
                 return strtoupper($keyObject->character);
             }
         );
@@ -370,9 +375,11 @@ class MapTest extends \PHPUnit_Framework_TestCase
      */
     public function createWithNullValueArgumentTest()
     {
-        new Map(array(
-            [new stdClass(), null]
-        ));
+        new Map(
+            array(
+                [new stdClass(), null]
+            )
+        );
     }
 
     /**

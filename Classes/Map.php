@@ -194,6 +194,16 @@ class Map implements \Iterator, \ArrayAccess, ArrayFunctionsInterface
     }
 
     /**
+     * @see offsetExists()
+     * @param object|string $keyObject Key object to lookup or it's hash
+     * @return bool
+     */
+    public function exists($keyObject)
+    {
+        return $this->offsetExists($keyObject);
+    }
+
+    /**
      * Offset to retrieve
      *
      * @link  http://php.net/manual/en/arrayaccess.offsetget.php
@@ -210,6 +220,16 @@ class Map implements \Iterator, \ArrayAccess, ArrayFunctionsInterface
         }
 
         return $this->hashToValueMap[$this->hash($offset)];
+    }
+
+    /**
+     * @see offsetGet()
+     * @param object|string $keyObject Key object to lookup or it's hash
+     * @return mixed
+     */
+    public function get($keyObject)
+    {
+        return $this->offsetGet($keyObject);
     }
 
     /**
@@ -230,6 +250,16 @@ class Map implements \Iterator, \ArrayAccess, ArrayFunctionsInterface
         $hash = $this->hash($offset);
         $this->hashToKeyObjectMap[$hash] = $offset;
         $this->hashToValueMap[$hash] = $value;
+    }
+
+    /**
+     * @see offsetSet()
+     * @param object|string $keyObject Key object to lookup or it's hash
+     * @param mixed $value
+     */
+    public function set($keyObject, $value)
+    {
+        $this->offsetSet($keyObject, $value);
     }
 
     /**
