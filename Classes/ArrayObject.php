@@ -39,44 +39,7 @@ namespace Cundd;
  */
 class ArrayObject extends \ArrayObject
 {
-    /**
-     * Applies the callback to the elements of the given arrays
-     *
-     * array_map() returns an array containing all the elements of array1 after applying the callback function to each one. The number of parameters that the callback function accepts should match the number of arrays passed to the array_map()
-     *
-     * @link http://php.net/manual/en/function.array-map.php
-     *
-     * @param callable $callback
-     * @return ArrayObject
-     */
-    public function map($callback)
-    {
-        if (!is_callable($callback)) {
-            throw new \InvalidArgumentException('Argument "callback" is not callable', 1442311974);
-        }
-
-        return new static(array_map($callback, $this->getArrayCopy()));
-    }
-
-    /**
-     * Filters elements of an array using a callback function
-     *
-     * Iterates over each value in the array passing them to the callback function. If the callback function returns true, the current value from array is returned into the result array. Array keys are preserved.
-     *
-     * @link http://php.net/manual/en/function.array-filter.php
-     *
-     * @param callable $callback The callback function to use
-     * @param int      $flag     Flag determining what arguments are sent to callback: ARRAY_FILTER_USE_KEY / ARRAY_FILTER_USE_BOTH
-     * @return ArrayObject
-     */
-    public function filter($callback, $flag = 0)
-    {
-        if (!is_callable($callback)) {
-            throw new \InvalidArgumentException('Argument "callback" is not callable', 1442311975);
-        }
-
-        return new static(array_filter($this->getArrayCopy(), $callback, $flag));
-    }
+    use ArrayFunctionsTrait;
 
     /**
      * Merge one or more arrays
@@ -97,17 +60,6 @@ class ArrayObject extends \ArrayObject
         $merged = call_user_func_array('array_merge', $arguments);
 
         return new static($merged);
-    }
-
-    /**
-     * Join array elements with a string
-     *
-     * @param string $glue
-     * @return string
-     */
-    public function implode($glue = '')
-    {
-        return implode($glue, $this->getArrayCopy());
     }
 
     /**
