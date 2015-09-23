@@ -40,7 +40,7 @@ use UnexpectedValueException;
  *
  * @package Cundd
  */
-class Map implements \Iterator, \ArrayAccess, ArrayFunctionsInterface
+class Map implements MapInterface
 {
     /**
      * Map of the object hash to the key object
@@ -72,13 +72,13 @@ class Map implements \Iterator, \ArrayAccess, ArrayFunctionsInterface
     /**
      * Create a new map with the given pairs
      *
-     * @param array $pair1...
+     * @param array $pair1 ...
      * @return Map
      */
     public static function createWithPairs($pair1)
     {
-       $pairs =  func_get_args();
-        foreach($pairs as $pair) {
+        $pairs = func_get_args();
+        foreach ($pairs as $pair) {
             static::assertPair($pair);
         }
         return new static($pairs);
@@ -95,6 +95,16 @@ class Map implements \Iterator, \ArrayAccess, ArrayFunctionsInterface
     public function getArrayCopy()
     {
         return $this->hashToValueMap;
+    }
+
+    /**
+     * Returns the array of key objects
+     *
+     * @return object[]
+     */
+    public function getKeys()
+    {
+        return $this->hashToKeyObjectMap;
     }
 
     /**
@@ -255,7 +265,7 @@ class Map implements \Iterator, \ArrayAccess, ArrayFunctionsInterface
     /**
      * @see offsetSet()
      * @param object|string $keyObject Key object to lookup or it's hash
-     * @param mixed $value
+     * @param mixed         $value
      */
     public function set($keyObject, $value)
     {

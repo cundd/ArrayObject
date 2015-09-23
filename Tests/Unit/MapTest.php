@@ -300,6 +300,39 @@ class MapTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function getArrayCopyTest()
+    {
+        $this->assertSame(['a', 'b', 'c'], array_values($this->fixture->getArrayCopy()));
+    }
+
+    /**
+     * @test
+     */
+    public function getKeysTest()
+    {
+        $objectA = new stdClass();
+        $objectA->character = 'a';
+
+        $objectB = new stdClass();
+        $objectB->character = 'b';
+
+        $objectC = new stdClass();
+        $objectC->character = 'c';
+
+        $this->fixture = new Map(
+            [
+                [$objectA, 'a'],
+                [$objectB, 'b'],
+                [$objectC, 'c'],
+            ]
+        );
+
+        $this->assertSame([$objectA, $objectB, $objectC], array_values($this->fixture->getKeys()));
+    }
+
+    /**
+     * @test
+     */
     public function mapTest()
     {
         $result = $this->fixture->map(

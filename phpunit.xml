@@ -3,7 +3,7 @@
         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.5/phpunit.xsd"
         backupGlobals="true"
         backupStaticAttributes="false"
-        bootstrap="./UnitTestsBootstrap.php"
+        bootstrap="./Tests/UnitTestsBootstrap.php"
         cacheTokens="false"
         convertErrorsToExceptions="true"
         convertNoticesToExceptions="true"
@@ -18,7 +18,7 @@
         verbose="true">
     <testsuites>
         <testsuite name="Unit Tests">
-            <directory>./Unit</directory>
+            <directory>./Tests/Unit</directory>
         </testsuite>
     </testsuites>
     <logging>
