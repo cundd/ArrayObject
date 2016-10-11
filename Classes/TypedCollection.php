@@ -188,9 +188,9 @@ class TypedCollection extends AbstractCollection
     }
 
     /**
-     * @param array $elements
+     * @param array|\Traversable $elements
      */
-    private function validateElementsType(array $elements)
+    private function validateElementsType($elements)
     {
         foreach ($elements as $element) {
             $this->validateElementType($element);

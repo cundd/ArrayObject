@@ -32,6 +32,7 @@
 namespace Cundd\Tests\Unit;
 
 
+use ArrayObject;
 use Cundd\Collection;
 use Cundd\Tests\Unit\Fixtures\Address;
 use Cundd\Tests\Unit\Fixtures\Person;
@@ -56,6 +57,17 @@ class TypedCollectionTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     */
+    public function createWithObjectTest()
+    {
+        $inputArray = [new Person('Daniel'), new Person('Gert'), new Person('Loren')];
+        $collection = new TypedCollection(new ArrayObject($inputArray));
+
+        $this->assertEquals($inputArray, $collection->getArrayCopy());
+    }
+
+    /**
+     * @test
      * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage Input is neither an array nor a object
      */
@@ -63,6 +75,7 @@ class TypedCollectionTest extends \PHPUnit_Framework_TestCase
     {
         new TypedCollection(123);
     }
+
     /**
      * @test
      * @expectedException \InvalidArgumentException
