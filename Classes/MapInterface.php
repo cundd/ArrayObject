@@ -13,7 +13,7 @@ namespace Cundd;
  *
  * @package Cundd
  */
-interface MapInterface extends \Iterator, \ArrayAccess, ArrayFunctionsInterface
+interface MapInterface extends \Iterator, \ArrayAccess, CollectionInterface
 {
     /**
      * Create a new map with the given pairs

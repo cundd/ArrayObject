@@ -30,8 +30,10 @@
  */
 
 
-namespace Cundd;
+namespace Cundd\Tests\Unit;
 
+
+use Cundd\Collection;
 
 class CollectionTest extends \PHPUnit_Framework_TestCase
 {
@@ -72,16 +74,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionCode 1442311974
-     */
-    public function mapWithoutCallableTest()
-    {
-        $this->fixture->map(null);
-    }
-
-    /**
-     * @test
      */
     public function filterTest()
     {
@@ -94,16 +86,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(Collection::class, $result);
         $this->assertSame(1, $result->count());
         $this->assertSame(['a'], $result->getArrayCopy());
-    }
-
-    /**
-     * @test
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionCode 1442311975
-     */
-    public function filterWithoutCallableTest()
-    {
-        $this->fixture->filter(null);
     }
 
     /**

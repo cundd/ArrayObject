@@ -1,7 +1,6 @@
 {
   "name": "cundd/array_object",
   "description": "Array object enhanced",
-  "minimum-stability": "dev",
   "license": "MIT",
   "authors": [
     {
@@ -19,5 +18,8 @@
     "psr-4": {
       "Cundd\\": "Classes/"
     }
+  },
+  "autoload-dev": {
+    "psr-4": { "Cundd\\Tests\\": "Tests/" }
   }
 }

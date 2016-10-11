@@ -2,7 +2,7 @@
 /*
  *  Copyright notice
  *
- *  (c) 2015 Andreas Thurnheer-Meier <tma@iresults.li>, iresults
+ *  (c) 2016 Andreas Thurnheer-Meier <tma@iresults.li>, iresults
  *  Daniel Corn <cod@iresults.li>, iresults
  *
  *  All rights reserved
@@ -26,20 +26,14 @@
 
 /**
  * @author COD
- * Created 21.09.15 11:29
+ * Created 11.10.16 15:19
  */
 
 
-namespace Cundd\Exception;
+namespace Cundd\Tests\Unit\Fixtures;
 
-use InvalidArgumentException;
 
-/**
- * Class NotCallableException
- *
- * @package Cundd\Exception
- */
-class NotCallableException extends InvalidArgumentException
+class Address
 {
 
 }

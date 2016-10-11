@@ -32,7 +32,6 @@
 
 namespace Cundd;
 
-use Cundd\Exception\NotCallableException;
 use UnexpectedValueException;
 
 /**
@@ -312,13 +311,10 @@ class Map implements MapInterface
      * @link http://php.net/manual/en/function.array-map.php
      *
      * @param callable $callback
-     * @return ArrayFunctionsInterface
+     * @return CollectionInterface
      */
-    public function map($callback)
+    public function map(callable $callback)
     {
-        if (!is_callable($callback)) {
-            throw new NotCallableException('Argument "callback" is not callable', 1442311974);
-        }
         $result = new static();
         foreach ($this as $keyObject => $value) {
             $result->offsetSet($keyObject, $callback($keyObject, $value));
@@ -336,13 +332,10 @@ class Map implements MapInterface
      *
      * @param callable $callback The callback function to use
      * @param int      $flag     Flag determining what arguments are sent to callback: ARRAY_FILTER_USE_KEY / ARRAY_FILTER_USE_BOTH
-     * @return ArrayFunctionsInterface
+     * @return CollectionInterface
      */
-    public function filter($callback, $flag = 0)
+    public function filter(callable $callback, $flag = 0)
     {
-        if (!is_callable($callback)) {
-            throw new NotCallableException('Argument "callback" is not callable', 1442311975);
-        }
         $result = new static();
         foreach ($this as $keyObject => $value) {
             if ($callback($keyObject, $value)) {

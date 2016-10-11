@@ -37,33 +37,28 @@ namespace Cundd;
  *
  * @package Cundd
  */
-class Collection extends AbstractCollection
+class AbstractCollection extends \ArrayObject implements CollectionInterface
 {
-    /**
-     * Split a string by string
-     *
-     * @param string $delimiter
-     * @param string $input
-     * @return Collection
-     */
-    public static function createFromString($delimiter, $input)
-    {
-        if (!is_string($delimiter)) {
-            throw new \InvalidArgumentException(
-                sprintf('Argument "delimiter" must be of type string "%s" given', gettype($delimiter)),
-                1442318390
-            );
-        }
-        if (!is_string($input)) {
-            throw new \InvalidArgumentException(
-                sprintf('Argument "input" must be of type string "%s" given', gettype($input)),
-                1442318391
-            );
-        }
-        if ($input === '') {
-            return new static();
-        }
+    use ArrayFunctionsTrait;
 
-        return new static(explode($delimiter, $input));
+    /**
+     * Merge one or more arrays
+     *
+     * Merges the elements of one or more arrays together so that the values of one are appended to the end of the previous one. It returns the resulting array.
+     *
+     * If the input arrays have the same string keys, then the later value for that key will overwrite the previous one. If, however, the arrays contain numeric keys, the later value will not overwrite the original value, but will be appended.
+     *
+     * Values in the input array with numeric keys will be renumbered with incrementing keys starting from zero in the result array.
+     *
+     * @param array ...$array1
+     * @return CollectionInterface
+     */
+    public function merge(array $array1)
+    {
+        $arguments = func_get_args();
+        array_unshift($arguments, $this->getArrayCopy());
+        $merged = call_user_func_array('array_merge', $arguments);
+
+        return new static($merged);
     }
 }

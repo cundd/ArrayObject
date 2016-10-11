@@ -30,9 +30,11 @@
  */
 
 
-namespace Cundd;
+namespace Cundd\Tests\Unit;
 
 
+use Cundd\CollectionInterface;
+use Cundd\Map;
 use stdClass;
 
 class MapTest extends \PHPUnit_Framework_TestCase
@@ -343,20 +345,10 @@ class MapTest extends \PHPUnit_Framework_TestCase
                 return strtoupper($keyObject->character);
             }
         );
-        $this->assertInstanceOf(ArrayFunctionsInterface::class, $result);
+        $this->assertInstanceOf(CollectionInterface::class, $result);
         $this->assertInstanceOf(Map::class, $result);
         $this->assertSame(3, $result->count());
         $this->assertSame(['A', 'B', 'C'], array_values($result->getArrayCopy()));
-    }
-
-    /**
-     * @test
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionCode 1442311974
-     */
-    public function mapWithoutCallableTest()
-    {
-        $this->fixture->map(null);
     }
 
     /**
@@ -370,20 +362,10 @@ class MapTest extends \PHPUnit_Framework_TestCase
             },
             $flag = 0
         );
-        $this->assertInstanceOf(ArrayFunctionsInterface::class, $result);
+        $this->assertInstanceOf(CollectionInterface::class, $result);
         $this->assertInstanceOf(Map::class, $result);
         $this->assertSame(1, $result->count());
         $this->assertSame(['a'], array_values($result->getArrayCopy()));
-    }
-
-    /**
-     * @test
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionCode 1442311975
-     */
-    public function filterWithoutCallableTest()
-    {
-        $this->fixture->filter(null);
     }
 
     /**
