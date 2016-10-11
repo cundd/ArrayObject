@@ -33,16 +33,16 @@
 namespace Cundd;
 
 
-class ArrayObjectTest extends \PHPUnit_Framework_TestCase
+class CollectionTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var ArrayObject
+     * @var Collection
      */
     protected $fixture;
 
     protected function setUp()
     {
-        $this->fixture = new ArrayObject(['a', 'b', 'c']);
+        $this->fixture = new Collection(['a', 'b', 'c']);
     }
 
     protected function tearDown()
@@ -60,12 +60,12 @@ class ArrayObjectTest extends \PHPUnit_Framework_TestCase
                 return strtoupper($item);
             }
         );
-        $this->assertInstanceOf(ArrayObject::class, $result);
+        $this->assertInstanceOf(Collection::class, $result);
         $this->assertSame(3, $result->count());
         $this->assertSame(['A', 'B', 'C'], $result->getArrayCopy());
 
         $result = $this->fixture->map('strtoupper');
-        $this->assertInstanceOf(ArrayObject::class, $result);
+        $this->assertInstanceOf(Collection::class, $result);
         $this->assertSame(3, $result->count());
         $this->assertSame(['A', 'B', 'C'], $result->getArrayCopy());
     }
@@ -91,7 +91,7 @@ class ArrayObjectTest extends \PHPUnit_Framework_TestCase
             },
             $flag = 0
         );
-        $this->assertInstanceOf(ArrayObject::class, $result);
+        $this->assertInstanceOf(Collection::class, $result);
         $this->assertSame(1, $result->count());
         $this->assertSame(['a'], $result->getArrayCopy());
     }
@@ -112,7 +112,7 @@ class ArrayObjectTest extends \PHPUnit_Framework_TestCase
     public function mergeTest()
     {
         $result = $this->fixture->merge([1, 2, 3]);
-        $this->assertInstanceOf(ArrayObject::class, $result);
+        $this->assertInstanceOf(Collection::class, $result);
         $this->assertSame(6, $result->count());
         $this->assertSame(['a', 'b', 'c', 1, 2, 3], $result->getArrayCopy());
     }
@@ -123,7 +123,7 @@ class ArrayObjectTest extends \PHPUnit_Framework_TestCase
     public function multiMergeTest()
     {
         $result = $this->fixture->merge([1, 2, 3], [4, 5, 6]);
-        $this->assertInstanceOf(ArrayObject::class, $result);
+        $this->assertInstanceOf(Collection::class, $result);
         $this->assertSame(9, $result->count());
         $this->assertSame(['a', 'b', 'c', 1, 2, 3, 4, 5, 6], $result->getArrayCopy());
     }
@@ -141,8 +141,8 @@ class ArrayObjectTest extends \PHPUnit_Framework_TestCase
      */
     public function createFromStringTest()
     {
-        $result = ArrayObject::createFromString(',', 'a,b,c');
-        $this->assertInstanceOf(ArrayObject::class, $result);
+        $result = Collection::createFromString(',', 'a,b,c');
+        $this->assertInstanceOf(Collection::class, $result);
         $this->assertSame(3, $result->count());
         $this->assertSame(['a', 'b', 'c'], $result->getArrayCopy());
     }
@@ -152,8 +152,8 @@ class ArrayObjectTest extends \PHPUnit_Framework_TestCase
      */
     public function createFromStringSingleElementTest()
     {
-        $result = ArrayObject::createFromString(',', 'a');
-        $this->assertInstanceOf(ArrayObject::class, $result);
+        $result = Collection::createFromString(',', 'a');
+        $this->assertInstanceOf(Collection::class, $result);
         $this->assertSame(1, $result->count());
         $this->assertSame(['a'], $result->getArrayCopy());
     }
@@ -163,8 +163,8 @@ class ArrayObjectTest extends \PHPUnit_Framework_TestCase
      */
     public function createFromStringWithEmptyStringTest()
     {
-        $result = ArrayObject::createFromString(',', '');
-        $this->assertInstanceOf(ArrayObject::class, $result);
+        $result = Collection::createFromString(',', '');
+        $this->assertInstanceOf(Collection::class, $result);
         $this->assertSame(0, $result->count());
         $this->assertSame([], $result->getArrayCopy());
     }
@@ -176,7 +176,7 @@ class ArrayObjectTest extends \PHPUnit_Framework_TestCase
      */
     public function createFromStringWithInvalidDelimiterTest()
     {
-        ArrayObject::createFromString(null, 'a,b,c');
+        Collection::createFromString(null, 'a,b,c');
     }
 
     /**
@@ -186,7 +186,7 @@ class ArrayObjectTest extends \PHPUnit_Framework_TestCase
      */
     public function createFromStringWithInvalidDelimiterIntTest()
     {
-        ArrayObject::createFromString(1, 'a,b,c');
+        Collection::createFromString(1, 'a,b,c');
     }
 
     /**
@@ -196,7 +196,7 @@ class ArrayObjectTest extends \PHPUnit_Framework_TestCase
      */
     public function createFromStringWithInvalidDelimiterDoubleTest()
     {
-        ArrayObject::createFromString(1.0, 'a,b,c');
+        Collection::createFromString(1.0, 'a,b,c');
     }
 
     /**
@@ -206,7 +206,7 @@ class ArrayObjectTest extends \PHPUnit_Framework_TestCase
      */
     public function createFromStringWithInvalidDelimiterArrayTest()
     {
-        ArrayObject::createFromString([], 'a,b,c');
+        Collection::createFromString([], 'a,b,c');
     }
 
     /**
@@ -216,7 +216,7 @@ class ArrayObjectTest extends \PHPUnit_Framework_TestCase
      */
     public function createFromStringWithInvalidDelimiterObjectTest()
     {
-        ArrayObject::createFromString(new \stdClass(), 'a,b,c');
+        Collection::createFromString(new \stdClass(), 'a,b,c');
     }
 
     /**
@@ -226,7 +226,7 @@ class ArrayObjectTest extends \PHPUnit_Framework_TestCase
      */
     public function createFromStringWithInvalidInputTest()
     {
-        ArrayObject::createFromString(',', null);
+        Collection::createFromString(',', null);
     }
 
     /**
@@ -236,7 +236,7 @@ class ArrayObjectTest extends \PHPUnit_Framework_TestCase
      */
     public function createFromStringWithInvalidInputIntTest()
     {
-        ArrayObject::createFromString(',', 1);
+        Collection::createFromString(',', 1);
     }
 
     /**
@@ -246,7 +246,7 @@ class ArrayObjectTest extends \PHPUnit_Framework_TestCase
      */
     public function createFromStringWithInvalidInputDoubleTest()
     {
-        ArrayObject::createFromString(',', 1.0);
+        Collection::createFromString(',', 1.0);
     }
 
     /**
@@ -256,7 +256,7 @@ class ArrayObjectTest extends \PHPUnit_Framework_TestCase
      */
     public function createFromStringWithInvalidInputArrayTest()
     {
-        ArrayObject::createFromString(',', []);
+        Collection::createFromString(',', []);
     }
 
     /**
@@ -266,6 +266,6 @@ class ArrayObjectTest extends \PHPUnit_Framework_TestCase
      */
     public function createFromStringWithInvalidInputObjectTest()
     {
-        ArrayObject::createFromString(',', new \stdClass());
+        Collection::createFromString(',', new \stdClass());
     }
 }

@@ -42,10 +42,10 @@ use Cundd\Exception\NotCallableException;
 trait ArrayFunctionsTrait
 {
     /**
-     * Creates a copy of the ArrayObject.
+     * Creates a copy of the Collection.
      *
      * @link  http://php.net/manual/en/arrayobject.getarraycopy.php
-     * @return array a copy of the array. When the <b>ArrayObject</b> refers to an object
+     * @return array a copy of the array. When the <b>Collection</b> refers to an object
      *        an array of the public properties of that object will be returned.
      * @since 5.0.0
      */

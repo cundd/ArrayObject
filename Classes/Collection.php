@@ -37,7 +37,7 @@ namespace Cundd;
  *
  * @package Cundd
  */
-class ArrayObject extends \ArrayObject
+class Collection extends \ArrayObject implements ArrayFunctionsInterface
 {
     use ArrayFunctionsTrait;
 
@@ -51,7 +51,7 @@ class ArrayObject extends \ArrayObject
      * Values in the input array with numeric keys will be renumbered with incrementing keys starting from zero in the result array.
      *
      * @param array ...$array1
-     * @return ArrayObject
+     * @return Collection
      */
     public function merge(array $array1)
     {
@@ -67,7 +67,7 @@ class ArrayObject extends \ArrayObject
      *
      * @param string $delimiter
      * @param string $input
-     * @return ArrayObject
+     * @return Collection
      */
     public static function createFromString($delimiter, $input)
     {
